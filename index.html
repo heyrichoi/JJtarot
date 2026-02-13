@@ -54,7 +54,7 @@ body{
   100%{opacity:0; transform: scale(0.5);}
 }
 
-/* ===== LANDING ===== */
+/* ===== LANDING (Main Screen Sticker Effect) ===== */
 .landing{
   position: fixed;
   inset: 0;
@@ -78,18 +78,15 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    perspective: 1200px;
+    perspective: 1500px; /* 원근감 심화 */
 }
 
 .center-card-overlay {
     position: absolute;
-    /* 위치는 화면 중앙 기준 유지 */
-    top: 43%; 
-    left: 48%; 
-    /* 너비/높이는 JS scale에 따라 시각적으로 변함 */
+    top: 42.5%; /* 높이 보정 */
+    left: 48.2%; /* 좌우 보정 */
     width: 25%; 
     height: 40%;
-    
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -102,9 +99,9 @@ body{
     transform-style: preserve-3d;
     transform: 
         translate(-50%, -50%) 
-        rotateZ(-23.5deg)     
-        rotateX(20deg)      
-        rotateY(10deg)      
+        rotateZ(-23.8deg)    /* 카드 각도 */
+        rotateX(22deg)       /* 원근감 눕힘 */
+        rotateY(10deg)       /* 왼쪽 돌출 */
         scale(0.95);
         
     mix-blend-mode: multiply;
@@ -130,7 +127,6 @@ body{
 
 .landing-title {
     font-family: 'Gowun Batang', serif;
-    /* 스케일 변수 적용 (기본값 30px * scale) */
     font-size: calc(30px * var(--landing-scale, 1));
     font-weight: 700;
     color: #2a1f15; 
@@ -140,12 +136,11 @@ body{
     line-height: 1.1;
     letter-spacing: -0.05em;
     backface-visibility: hidden;
-    white-space: nowrap; /* 줄바꿈 방지 */
+    white-space: nowrap; 
 }
 
 .start-btn {
     font-family: 'Noto Sans KR', sans-serif;
-    /* 스케일 변수 적용 */
     font-size: calc(16px * var(--landing-scale, 1));
     font-weight: 800;
     background: transparent;
@@ -157,7 +152,7 @@ body{
     transition: all 0.2s;
     white-space: nowrap;
     backface-visibility: hidden;
-    margin-left: calc(25px * var(--landing-scale, 1)); 
+    margin-left: calc(20px * var(--landing-scale, 1)); 
 }
 
 .start-btn:hover {
@@ -202,20 +197,19 @@ body{
   position:relative;
   min-height: 100vh; 
   transition: min-height 0.5s ease;
-  perspective: 1000px;
-  padding-top: 50px;
+  perspective: 1200px;
+  padding-top: 40px;
 }
 
 .scalable-wrapper {
     position: relative;
-    width: 900px; 
-    height: 600px; 
+    width: 900px; /* 논리적 너비 고정 */
+    height: 700px; 
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     transform-origin: center top; 
-    transition: all 0.5s ease;
 }
 
 .deck-title-msg{
@@ -224,22 +218,22 @@ body{
   color:var(--gold);
   letter-spacing:1px;
   text-shadow: 0 4px 12px rgba(0,0,0,0.8);
-  margin-bottom: 20px;
+  margin-top: 20px;
+  margin-bottom: 40px;
   min-height: 36px;
-  transition: all 0.3s ease;
   z-index: 500;
 }
 
 .deck-container{
   position:relative;
-  width:900px;
-  height:500px; 
+  width: 900px;
+  height: 500px;
 }
 
-/* 3D CARD - 크기 축소 (130x210) */
+/* 3D CARD - (110x170) */
 .deck-card{
   position:absolute;
-  width:130px; height:210px;
+  width:110px; height:170px;
   perspective:1000px;
   cursor: pointer;
   transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -259,14 +253,14 @@ body{
   transform-style:preserve-3d;
   transition:transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
   box-shadow:0 5px 15px rgba(0,0,0,0.3);
-  border-radius:12px;
+  border-radius:10px;
 }
 .deck-card.flipped .card-inner{ transform:rotateY(180deg); }
 
 .card-face{
   position:absolute;
   inset:0;
-  border-radius:12px;
+  border-radius:10px;
   backface-visibility:hidden;
   display:flex; flex-direction: column;
   align-items:center;justify-content:center;
@@ -346,20 +340,14 @@ body{
     padding: 25px;
     backdrop-filter: blur(10px);
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    transition: transform 0.3s ease;
-}
-.result-column:hover {
-    transform: translateY(-5px);
-    background: rgba(16, 20, 40, 0.8);
-    border-color: var(--gold-dim);
 }
 
 .result-card-visual {
-    width: 160px; /* 결과 카드도 비율 맞춰 축소 */
-    height: 250px;
+    width: 140px; 
+    height: 220px;
     background-size: 100% 100%;
     background-position: center;
-    border-radius: 12px;
+    border-radius: 10px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.5);
     margin-bottom: 20px;
 }
@@ -373,7 +361,6 @@ body{
     font-weight: 900;
     margin-bottom: 10px;
     display: inline-block;
-    box-shadow: 0 4px 10px rgba(246, 211, 122, 0.3);
 }
 
 .card-name-title {
@@ -390,7 +377,6 @@ body{
     font-weight: 700;
     margin-bottom: 15px;
     text-align: center;
-    opacity: 0.9;
 }
 
 .reading-detail {
@@ -405,7 +391,6 @@ body{
     word-break: keep-all;
 }
 
-/* 로아 조언 스타일 */
 .loa-advice-box {
     margin-top: 15px;
     font-size: 15px;
@@ -418,7 +403,6 @@ body{
     width: 100%;
     text-align: left; 
     word-break: keep-all;
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
 }
 .loa-title {
     font-weight: 900;
@@ -435,7 +419,6 @@ body{
     border-radius: 20px;
     padding: 30px;
     margin-top: 20px;
-    backdrop-filter: blur(10px);
 }
 
 .result-section-title {
@@ -451,7 +434,7 @@ body{
 .fortuneItem{display:flex;gap:15px;margin-top:14px;align-items:center; font-size: 15px;}
 .bar-label { width: 70px; font-weight: bold; color: #ccc; }
 .bar{flex:1;height:12px;background:rgba(255,255,255,.1);border-radius:6px;overflow:hidden}
-.fill{height:100%;width:0;transition:width 1s cubic-bezier(0.4, 0, 0.2, 1); border-radius: 6px;}
+.fill{height:100%;width:0;transition:width 1s cubic-bezier(0.4, 0.0, 0.2, 1); border-radius: 6px;}
 
 .controls-area {
     display: flex;
@@ -470,11 +453,7 @@ body{
   font-size: 18px;
   cursor:pointer;
   box-shadow:0 10px 20px rgba(0,0,0,.3);
-  transition: transform 0.2s, background 0.2s;
 }
-.btn:hover { background: #ffe4a0; transform: scale(1.05); }
-.btn.secondary{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2); backdrop-filter: blur(4px);}
-.btn.secondary:hover { background: rgba(255,255,255,0.2); }
 
 @keyframes slideUp {
     from { transform: translateY(50px); opacity: 0; }
@@ -482,27 +461,9 @@ body{
 }
 
 @media (max-width: 900px) {
-    /* 모바일에서는 높이 줄여줌 */
-    .scalable-wrapper { width: 100%; height: 450px; }
-    .deck-container { width: 100%; height: 400px; }
-    /* 모바일에서 카드 크기 조정 (90x140) */
-    .deck-card { width: 90px; height: 140px; } 
-    .deck-title-msg { font-size: 20px; margin-bottom: 10px; }
-    
-    /* 모바일 랜딩 화면 조정 */
-    .center-card-overlay { 
-        width: 55%; 
-        height: 45%; 
-        left: 48%; 
-    }
-    /* 모바일에서는 scale 계산이 다르므로 기본 크기 지정 */
-    
-    /* 모바일 결과 화면 */
-    .result-column { 
-        min-width: 100%; 
-        max-width: 100%; 
-    } 
-    .result-card-visual { width: 120px; height: 180px; }
+    /* 모바일에서는 스케일링을 논리 너비 900px 기준으로 수행하여 가로 잘림 해결 */
+    .center-card-overlay { width: 55%; height: 45%; left: 48%; }
+    .result-column { min-width: 100%; max-width: 100%; } 
 }
 </style>
 </head>
@@ -524,7 +485,6 @@ body{
 <div class="deckPage" id="deckPage">
   <div class="layout">
     
-    <!-- Top Area -->
     <div class="table-area" id="tableArea">
         <div class="scalable-wrapper" id="scalableWrapper">
             <div class="deck-title-msg" id="pickMsg">✨ 3장의 카드를 뽑아주세요 ✨</div>
@@ -548,7 +508,6 @@ body{
             </div>
         </div>
     </div>
-
   </div>
 </div>
 
@@ -565,14 +524,8 @@ for(let i=0;i<80;i++){
   starContainer.appendChild(s);
 }
 
-/* ===== CONSTANTS & DATA ===== */
 const POSITIONS=["과거", "현재", "조언"];
-const SCORE_LABELS = {
-    overall: "총운",
-    enhance: "강화운",
-    drop: "득템운",
-    party: "파티운"
-};
+const SCORE_LABELS = { overall: "총운", enhance: "강화운", drop: "득템운", party: "파티운" };
 
 const tarotData=[
   {
@@ -677,7 +630,7 @@ const tarotData=[
   },
   {
     name:'운명의 수레바퀴 (Wheel of Fortune)', img:'https://i.imgur.com/vzTdzcb.png',
-    meaning:'피할 수 없는 변화와 행운',
+    meaning:'변화와 기회',
     detail:'운명의 수레바퀴가 돌기 시작했습니다. 우연히 찾아온 기회나 뜻밖의 행운을 놓치지 마세요. 흐름에 몸을 맡기면 좋은 곳에 도달할 것입니다.',
     loa: '운의 흐름이 움직이고 있습니다. 가볍게 시도한 재련이나 랜덤 보상에서 기분 좋은 결과가 나타날 수 있습니다.',
     revMeaning:'예기치 않은 불운과 정체',
@@ -687,10 +640,10 @@ const tarotData=[
   },
   {
     name:'정의 (Justice)', img:'https://i.imgur.com/eZynk65.png',
-    meaning:'공정한 판단과 정당한 보상',
+    meaning:'공정한 판단과 보상',
     detail:'뿌린 대로 거두는 날입니다. 정직하게 노력했다면 정당한 보상을 받게 될 것입니다. 감정에 치우치지 않고 객관적으로 판단하세요.',
     loa: '성실함이 곧 결과로 이어지는 날입니다. 숙제를 정리하면 그만큼의 보상이 정확히 돌아옵니다.',
-    revMeaning:'편파적인 판단과 불이익',
+    revMeaning:'불공정과 지연',
     revDetail:'판단력이 흐려져 편파적인 결정을 내리거나 억울한 오해를 받을 수 있습니다. 편법을 쓰려다가 오히려 더 큰 손해를 볼 수 있습니다.',
     revLoa: '편법이나 조급한 선택은 불리하게 작용할 수 있습니다. 오늘은 정석적인 플레이가 가장 안전합니다.',
     score:{overall:7,enhance:7,drop:8,party:5}, revScore:{overall:4,enhance:3,drop:3,party:3}
@@ -710,27 +663,27 @@ const tarotData=[
     meaning:'완벽한 종결과 새로운 시작',
     detail:'하나의 챕터가 끝나고 새로운 문이 열립니다. 낡은 껍질을 벗어야만 새롭게 태어날 수 있습니다. 과거를 정리하고 변화를 받아들이세요.',
     loa: '변화를 받아들이기 좋은 날입니다. 세팅을 리셋하거나 방향을 바꾸는 결심이 오히려 새로운 흐름을 만듭니다.',
-    revMeaning:'변화에 대한 두려움과 정체',
+    revMeaning:'정체와 미련',
     revDetail:'이미 끝난 인연이나 상황에 미련을 버리지 못하고 있습니다. 썩은 것을 도려내지 않으면 새살이 돋지 않습니다. 용기를 내어 정리하세요.',
     revLoa: '이미 지나간 실패에 얽매이지 마세요. 미련은 판단을 흐립니다. 한 번 비워야 다음 기회가 들어옵니다.',
     score:{overall:6,enhance:4,drop:2,party:4}, revScore:{overall:3,enhance:2,drop:2,party:3}
   },
   {
     name:'절제 (Temperance)', img:'https://i.imgur.com/MTBOxUn.png',
-    meaning:'조화로운 균형과 중용의 미덕',
+    meaning:'조화로운 균형과 중용',
     detail:'서로 다른 것들이 섞여 새로운 조화를 만들어냅니다. 무리하게 욕심내지 않고 물 흐르듯 유연하게 대처하면 평화로운 안정을 찾을 수 있습니다.',
     loa: '과하지 않게, 적당히. 강화와 휴식의 균형을 맞추면 하루가 편안하게 흘러갑니다.',
-    revMeaning:'조절 실패와 불균형',
+    revMeaning:'불균형과 과잉',
     revDetail:'감정 기복이 심하고 생활의 리듬이 깨져있습니다. 과도한 욕심이나 한쪽으로 치우친 생각 때문에 주변과 불협화음을 낼 수 있습니다.',
     revLoa: '과몰입은 금물입니다. 한 번에 모든 걸 해결하려 하지 말고 속도를 줄여보세요.',
     score:{overall:8,enhance:8,drop:7,party:9}, revScore:{overall:4,enhance:3,drop:4,party:3}
   },
   {
     name:'악마 (The Devil)', img:'https://i.imgur.com/FVOuOWp.png',
-    meaning:'강렬한 유혹과 물질적 집착',
+    meaning:'강렬한 유혹과 집착',
     detail:'강렬한 욕망이나 물질적인 이익에 눈이 멀 수 있습니다. 하지만 이 에너지를 잘 활용한다면 엄청난 집중력과 성과를 낼 수도 있습니다.',
     loa: '욕망이 강해지는 날입니다. 확신이 있다면 한 번의 도전은 괜찮지만, 연속 선택은 신중히 하세요.',
-    revMeaning:'속박에서의 해방과 각성',
+    revMeaning:'해방과 자각',
     revDetail:'나쁜 습관이나 유혹의 사슬이 끊어집니다. 긴 어둠의 터널을 지나 자유를 되찾게 되는 순간입니다. 뒤도 돌아보지 말고 탈출하세요.',
     revLoa: '집착을 내려놓으면 흐름이 풀립니다. 오늘은 버튼을 누르지 않는 용기가 더 큰 이득이 될 수 있습니다.',
     score:{overall:5,enhance:8,drop:9,party:3}, revScore:{overall:7,enhance:5,drop:5,party:6}
@@ -740,57 +693,57 @@ const tarotData=[
     meaning:'갑작스런 변화와 붕괴',
     detail:'예상치 못한 충격으로 기존의 틀이 무너집니다. 붕괴를 두려워하지 마세요. 잘못된 기반을 무너뜨리고 더 튼튼한 집을 짓는 과정입니다.',
     loa: '불안한 흐름입니다. 위험 부담이 큰 강화나 확률 컨텐츠는 잠시 피하는 편이 좋습니다.',
-    revMeaning:'위기 모면과 충격의 여파',
+    revMeaning:'위기 모면',
     revDetail:'큰 재난은 피했지만 여파는 남아있습니다. 무너질 뻔한 상황을 억지로 봉합해 놓은 상태일 수 있습니다. 내실을 다져야 할 때입니다.',
     revLoa: '큰 위기는 비켜갈 수 있습니다. 다만 사소한 실수에만 주의하면 충분히 무난한 하루가 됩니다.',
     score:{overall:1,enhance:1,drop:1,party:1}, revScore:{overall:3,enhance:2,drop:2,party:3}
   },
   {
     name:'별 (The Star)', img:'https://i.imgur.com/83YUAfD.png',
-    meaning:'희망찬 미래와 영감',
+    meaning:'희망과 영감',
     detail:'폭풍우가 지나간 밤하늘에 반짝이는 별처럼 희망이 찾아옵니다. 꿈이 현실이 될 수 있다는 믿음을 가지세요. 긍정적인 에너지가 넘쳐납니다.',
     loa: '희망이 따르는 날입니다. 가볍게 시도한 선택이 기분 좋은 결과로 이어질 수 있습니다.',
-    revMeaning:'실망감과 비현실적인 기대',
+    revMeaning:'비관과 실망',
     revDetail:'현실성 없는 허황된 꿈만 좇고 있지는 않나요? 기대가 크면 실망도 큽니다. 뜬구름 잡는 소리보다는 발밑의 현실을 직시하세요.',
     revLoa: '기대치를 조금만 낮추면 실망도 줄어듭니다. 오늘은 무리하지 않는 선에서 즐겨보세요.',
     score:{overall:9,enhance:7,drop:7,party:8}, revScore:{overall:5,enhance:4,drop:4,party:5}
   },
   {
     name:'달 (The Moon)', img:'https://i.imgur.com/Dc5P8KG.png',
-    meaning:'불안한 내면과 모호함',
+    meaning:'불안과 모호함',
     detail:'앞이 잘 보이지 않는 밤길처럼 모든 것이 불확실합니다. 막연한 불안감이나 의심이 들 수 있습니다. 섣불리 움직이기보다는 신중함이 필요합니다.',
     loa: '판단이 흐려질 수 있습니다. 큰 결정보다는 안전한 플레이가 어울립니다.',
-    revMeaning:'혼란의 해소와 진실의 발견',
+    revMeaning:'혼란 해소',
     revDetail:'어둠이 걷히고 새벽이 밝아옵니다. 불안의 실체가 드러나고 오해가 풀립니다. 혼란스러웠던 상황이 정리되면서 나아갈 길이 명확해집니다.',
     revLoa: '혼란이 정리되는 흐름입니다. 미뤄둔 트라이나 재시도가 의외로 순조롭게 풀릴 수 있습니다.',
     score:{overall:4,enhance:3,drop:4,party:3}, revScore:{overall:6,enhance:5,drop:6,party:6}
   },
   {
     name:'태양 (The Sun)', img:'https://i.imgur.com/KTDIDgV.png',
-    meaning:'밝은 성공과 순수한 기쁨',
+    meaning:'성공과 기쁨',
     detail:'구름 한 점 없는 태양처럼 모든 것이 명확하고 긍정적입니다. 하는 일마다 술술 풀리고 큰 성공을 맛볼 수 있습니다. 인생 최고의 황금기입니다.',
     loa: '자신 있게 도전해도 좋습니다. 강화와 레이드 모두 긍정적인 결과로 이어질 가능성이 높습니다.',
-    revMeaning:'일시적인 흐림과 지연',
+    revMeaning:'일시적인 지연',
     revDetail:'성공이 눈앞에 보이지만 조금 지연되거나, 사소한 문제로 기쁨이 반감될 수 있습니다. 하지만 태양은 사라지지 않았으니 조금만 기다리세요.',
     revLoa: '거의 다 왔습니다. 한 템포 쉬어가면 더 좋은 결말로 이어질 수 있습니다.',
     score:{overall:10,enhance:10,drop:9,party:10}, revScore:{overall:7,enhance:7,drop:7,party:7}
   },
   {
     name:'심판 (Judgement)', img:'https://i.imgur.com/QJ5V2WY.png',
-    meaning:'운명적인 부활과 보상',
+    meaning:'부활과 보상',
     detail:'기다리던 소식이 들려오고 노력에 대한 보상을 받습니다. 막혔던 운이 트이고 새로운 기회가 찾아오는 부활의 시기입니다.',
     loa: '다시 시도할 때입니다. 과거에 실패했던 도전이 이번엔 다른 결과를 보여줄 수 있습니다.',
-    revMeaning:'과거에 대한 후회',
+    revMeaning:'후회와 미련',
     revDetail:'과거의 실수나 미련에 발목이 잡혀 앞으로 나아가지 못하고 있습니다. 변명은 그만두고 자신의 잘못을 인정해야 새 출발을 할 수 있습니다.',
     revLoa: '후회가 판단을 흐릴 수 있습니다. 오늘은 복기와 정리가 우선입니다.',
     score:{overall:9,enhance:9,drop:9,party:7}, revScore:{overall:4,enhance:3,drop:3,party:4}
   },
   {
     name:'세계 (The World)', img:'https://i.imgur.com/CFKWk25.png',
-    meaning:'완벽한 완성과 통합',
+    meaning:'완성과 통합',
     detail:'긴 여정이 성공적으로 마무리되고 완벽한 조화를 이룹니다. 목표를 완전히 달성하여 최고의 성취감을 느낄 것입니다. 해피엔딩입니다.',
     loa: '마무리하기 좋은 날입니다. 장기 목표의 마지막 단계를 차분히 시도하세요.',
-    revMeaning:'미완성의 아쉬움',
+    revMeaning:'미완성',
     revDetail:'목표에 거의 도달했지만 결정적인 한 조각이 부족합니다. 99%까지 왔지만 마지막 1%의 부족함 때문에 답답함을 느낄 수 있습니다.',
     revLoa: '거의 완성 단계입니다. 조급하지 않게 마지막 한 걸음을 정리하는 것이 중요합니다.',
     score:{overall:10,enhance:10,drop:10,party:10}, revScore:{overall:6,enhance:6,drop:6,party:6}
@@ -808,63 +761,40 @@ function handleResize() {
     const tableArea = document.getElementById('tableArea');
     if(!wrapper || !tableArea) return;
 
-    // 랜딩 페이지 스케일링 계산
-    const landingOverlay = document.querySelector('.center-card-overlay');
-    if (landingOverlay) {
-       // 배경 이미지가 cover로 채워질 때, 실제 렌더링된 이미지의 스케일을 추정
-       // 이미지 비율: 1920x1080 가정 (16:9 = 1.77)
-       // 혹은 이미지 파일 분석이 어려우므로 윈도우 크기 기반으로 적절히 스케일링
-       const aspect = 1.77;
-       const winW = window.innerWidth;
-       const winH = window.innerHeight;
-       const winAspect = winW / winH;
-       
-       let scale;
-       if (winAspect > aspect) {
-           // 화면이 더 넓음 -> 이미지가 가로로 꽉 참 (세로 잘림)
-           // 기준 폭 1200px 정도라고 가정했을 때
-           scale = winW / 1200; 
-       } else {
-           // 화면이 더 좁음 -> 이미지가 세로로 꽉 참 (가로 잘림)
-           // 이미지의 실제 렌더링 너비 = winH * aspect
-           scale = (winH * aspect) / 1200;
-       }
-       
-       // 모바일 등에서 너무 작아지지 않게 최소값 설정
-       if(scale < 0.6) scale = 0.6;
-       
-       document.documentElement.style.setProperty('--landing-scale', scale);
-    }
-
-    // 카드 테이블 스케일링
-    const isMobile = window.innerWidth <= 900;
-    const baseWidth = isMobile ? 600 : 900; 
-    const baseHeight = 500;
-    const availableWidth = tableArea.clientWidth;
-    const availableHeight = tableArea.clientHeight;
-
-    const scaleX = (availableWidth * 0.95) / baseWidth;
-    const scaleY = (availableHeight * 0.75) / baseHeight;
+    // 모바일/PC 상관없이 고정 논리 너비 900px를 화면에 끼워 맞춤
+    const baseWidth = 900; 
+    const availableWidth = window.innerWidth;
     
-    let scale = Math.min(scaleX, scaleY);
-    if(scale > 1.2) scale = 1.2;
+    // 화면 너비에 맞게 전체 스케일 조정 (가로 잘림 방지)
+    const scaleX = (availableWidth * 0.98) / baseWidth;
+    let scale = Math.min(scaleX, 1.2); // 최대 크기 제한
 
     wrapper.style.transform = `scale(${scale})`;
+
+    // 랜딩 페이지 스케일링
+    const landingOverlay = document.querySelector('.center-card-overlay');
+    if (landingOverlay) {
+       const aspect = 1.77;
+       const winAspect = availableWidth / window.innerHeight;
+       let lScale = (winAspect > aspect) ? availableWidth / 1200 : (window.innerHeight * aspect) / 1200;
+       if(lScale < 0.6) lScale = 0.6;
+       document.documentElement.style.setProperty('--landing-scale', lScale);
+    }
 }
 window.addEventListener('resize', handleResize);
 
 
 function startSpread(){
-  // 시작 시 스크롤 최상단으로
   window.scrollTo(0, 0);
-  
   document.getElementById('landing').style.opacity = '0';
   setTimeout(()=>{
       document.getElementById('landing').style.display = 'none';
       document.getElementById('deckPage').style.display = 'block';
-      setTimeout(() => document.getElementById('deckPage').classList.add('active'), 50);
-      handleResize(); 
-      animateSpread();
+      setTimeout(() => {
+          document.getElementById('deckPage').classList.add('active');
+          handleResize(); 
+          animateSpread();
+      }, 50);
   }, 500);
 }
 
@@ -883,42 +813,37 @@ function animateSpread(){
   selected=[];
   isAnimating = true;
 
-  // UI 초기화
   document.getElementById('pickMsg').textContent = '✨ 3장의 카드를 뽑아주세요 ✨';
   document.getElementById('resultGrid').innerHTML='';
   document.getElementById('fortuneList').innerHTML='';
   document.getElementById('totalScore').textContent='';
   
-  // 테이블 영역 다시 표시
   document.getElementById('tableArea').style.display = 'flex';
   document.getElementById('resultContainer').style.display = 'none';
   document.getElementById('resultContainer').style.opacity = '0';
   
-  // 스크롤 상단 이동
   window.scrollTo(0, 0);
 
-  // Shuffle
   for (let i = tarotData.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [tarotData[i], tarotData[j]] = [tarotData[j], tarotData[i]];
   }
 
-  // 부채꼴 세팅
   const totalCards = tarotData.length;
-  const angleRange = 70; 
+  const angleRange = 85; 
   const startAngle = -angleRange / 2;
   const angleStep = angleRange / (totalCards - 1);
   const radius = 600; 
   const centerX = 450; 
-  const centerY = 800; // 중심점 더 아래로 
+  const centerY = 1100; // 중심점을 더 내려서 글자와 겹치지 않게 함
 
   tarotData.forEach((data, i) => {
     const wrapper = document.createElement('div');
     wrapper.className = 'deck-card';
     
-    // 초기 위치
-    wrapper.style.left = (centerX - 65) + 'px'; // 130/2
-    wrapper.style.top = (centerY - radius - 200) + 'px'; // 더 위쪽에서 시작
+    // 초기 위치 (중앙 뭉침)
+    wrapper.style.left = (centerX - 55) + 'px'; 
+    wrapper.style.top = (centerY - radius + 50) + 'px'; 
     wrapper.style.transform = `rotate(0deg)`;
     wrapper.style.zIndex = i; 
 
@@ -937,13 +862,12 @@ function animateSpread(){
     wrapper.appendChild(inner);
     container.appendChild(wrapper);
 
-    // 펼쳐지는 애니메이션
     setTimeout(() => {
         const angleDeg = startAngle + (i * angleStep);
         const angleRad = (angleDeg - 90) * (Math.PI / 180); 
 
-        const targetX = centerX + radius * Math.cos(angleRad) - 65; 
-        const targetY = centerY + radius * Math.sin(angleRad) - 230; 
+        const targetX = centerX + radius * Math.cos(angleRad) - 55; 
+        const targetY = centerY + radius * Math.sin(angleRad) - 200; // 수직 위치 하향 조정
 
         wrapper.style.left = targetX + 'px';
         wrapper.style.top = targetY + 'px';
@@ -953,7 +877,7 @@ function animateSpread(){
         wrapper.dataset.baseZIndex = i;
 
         if(i === totalCards - 1) isAnimating = false;
-    }, i * 40 + 100);
+    }, i * 30 + 100);
 
     wrapper.onmouseenter = () => {
         if (!wrapper.classList.contains('dim') && !wrapper.classList.contains('selected') && !isAnimating) {
@@ -973,13 +897,10 @@ function animateSpread(){
 function resetReading(){
   if(isAnimating) return;
   
-  // Make visible first so dimensions can be measured
   document.getElementById('tableArea').style.display = 'flex';
   document.getElementById('resultContainer').style.display = 'none';
   
-  // Force resize calculation
   handleResize();
-  
   animateSpread();
 }
 
@@ -1024,50 +945,36 @@ function placeSpread(){
   const container = document.getElementById('deckContainer');
   const all = Array.from(container.querySelectorAll('.deck-card'));
 
-  // 선택 안 된 카드 사라지게
   all.forEach(card=>{
     if(!card.classList.contains('selected')){
       card.style.opacity = '0';
     }
   });
 
-  // 선택된 카드들 정렬 애니메이션
-  const cardW = 130; // 변경된 카드 너비
-  const gap = 80;
+  const cardW = 110; 
+  const gap = 60;
   const totalW = (cardW * 3) + (gap * 2);
   const startX = (900 - totalW) / 2;
-  const targetY = 100; 
+  const targetY = 200; // 결과 배치 위치
   
   selected.forEach((item, idx)=>{
     const targetX = startX + idx * (cardW + gap);
-    
     item.el.style.transition = 'all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1)';
     item.el.style.left = targetX + 'px';
     item.el.style.top = targetY + 'px';
-    item.el.style.transform = `rotate(0deg) scale(1.1)`; 
+    item.el.style.transform = `rotate(0deg) scale(1.2)`; 
     item.el.style.zIndex = 700 + idx;
   });
 
-  // 애니메이션 끝나고 결과 화면 렌더링
   setTimeout(()=>{
     document.getElementById('pickMsg').textContent = '✨ 결과가 나왔습니다! ✨';
-    
-    // 테이블 영역 숨기고 결과 화면 표시
     document.getElementById('tableArea').style.display = 'none';
 
     renderResultView();
-    
-    // 결과 영역 표시 및 스크롤 상단으로 이동
     const resultContainer = document.getElementById('resultContainer');
     resultContainer.style.display = 'flex';
-    
-    // 스크롤을 맨 위로 강제 이동 (결과 상단부터 보이게)
     window.scrollTo(0, 0); 
-    
-    setTimeout(()=> {
-        resultContainer.style.opacity = '1';
-    }, 50);
-
+    setTimeout(()=> { resultContainer.style.opacity = '1'; }, 50);
     isAnimating = false;
   }, 1000);
 }
@@ -1081,10 +988,7 @@ function renderResultView(){
     const dirStr = isRev ? '(역방향)' : '(정방향)';
     const meaning = isRev ? item.data.revMeaning : item.data.meaning;
     const detail  = isRev ? item.data.revDetail  : item.data.detail;
-    // 로아 조언
     const loaAdvice = isRev ? (item.data.revLoa || item.data.loa) : item.data.loa;
-    
-    // 역방향이면 이미지 180도 회전 CSS 필요
     const imgTransform = isRev ? 'transform: rotate(180deg);' : '';
 
     const col = document.createElement('div');
@@ -1109,18 +1013,13 @@ function renderResultView(){
 
 function calculateTotal(){
   const sums = { overall:0, enhance:0, drop:0, party:0 };
-
   selected.forEach(item => {
     const s = (item.reversed && item.data.revScore) ? item.data.revScore : item.data.score;
-    for (let k in sums) {
-        sums[k] += s[k];
-    }
+    for (let k in sums) { sums[k] += s[k]; }
   });
 
   const avgs = {};
-  for (let k in sums) {
-      avgs[k] = Math.round(sums[k] / 3); 
-  }
+  for (let k in sums) { avgs[k] = Math.round(sums[k] / 3); }
 
   const fortuneList = document.getElementById('fortuneList');
   fortuneList.innerHTML = '';
@@ -1141,10 +1040,7 @@ function calculateTotal(){
       <div style="width:30px; text-align:right; font-weight:bold; color:${color}">${val}</div>
     `;
     fortuneList.appendChild(row);
-
-    setTimeout(() => {
-        row.querySelector('.fill').style.width = (val * 10) + '%';
-    }, 100);
+    setTimeout(() => { row.querySelector('.fill').style.width = (val * 10) + '%'; }, 100);
   }
 
   const totalAvg = Math.round((sums.overall + sums.enhance + sums.drop + sums.party) / 12); 
@@ -1152,7 +1048,6 @@ function calculateTotal(){
 }
 
 window.onload = handleResize;
-
 </script>
 
 </body>
