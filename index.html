@@ -19,7 +19,7 @@
   --good:#66e0a3;
   --bad:#ff6b81;
   --neutral:#9aa4ff;
-  --loa-bg: rgba(60, 70, 100, 0.5); /* 로아 조언 배경색 */
+  --loa-bg: rgba(60, 70, 100, 0.5); 
 }
 
 *{box-sizing:border-box}
@@ -83,12 +83,10 @@ body{
 
 .center-card-overlay {
     position: absolute;
-    /* 위치 조정: 47% -> 48% (오른쪽으로 이동) */
     top: 43%; 
     left: 48%; 
     width: 25%; 
     height: 40%;
-    
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -97,7 +95,6 @@ body{
     color: #3e2b1f; 
     z-index: 2;
     cursor: pointer;
-
     transform-style: preserve-3d;
     transform: 
         translate(-50%, -50%) 
@@ -105,7 +102,6 @@ body{
         rotateX(20deg)      
         rotateY(10deg)      
         scale(0.95);
-        
     mix-blend-mode: multiply;
     opacity: 0.95;
 }
@@ -153,7 +149,6 @@ body{
     transition: all 0.2s;
     white-space: nowrap;
     backface-visibility: hidden;
-    /* 버튼 위치 보정 (더 오른쪽으로 5px -> 25px) */
     margin-left: 25px; 
 }
 
@@ -202,12 +197,11 @@ body{
   perspective: 1000px;
   padding-top: 50px;
 }
-.table-area.shrink { min-height: 400px; }
 
 .scalable-wrapper {
     position: relative;
     width: 900px; 
-    height: 500px;
+    height: 600px; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -231,13 +225,13 @@ body{
 .deck-container{
   position:relative;
   width:900px;
-  height:400px;
+  height:500px; 
 }
 
-/* 3D CARD */
+/* 3D CARD - 크기 축소 (130x210) */
 .deck-card{
   position:absolute;
-  width:160px; height:240px;
+  width:130px; height:210px;
   perspective:1000px;
   cursor: pointer;
   transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -299,17 +293,27 @@ body{
 
 .deck-card.selected{ z-index: 400 !important; }
 
-/* ===== RESULT AREA (3-Column Layout) ===== */
+/* ===== RESULT AREA ===== */
 .result-container {
     width: 95%;
     max-width: 1200px;
-    margin-top: 20px;
+    margin-top: 40px;
     display: none;
     opacity: 0;
     transition: opacity 1s ease;
     animation: slideUp 0.8s ease-out forwards;
     flex-direction: column;
     align-items: center;
+}
+
+.result-header-msg {
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--gold);
+    text-shadow: 0 0 20px rgba(246, 211, 122, 0.5);
+    margin-bottom: 40px;
+    text-align: center;
+    width: 100%;
 }
 
 .result-grid {
@@ -343,8 +347,8 @@ body{
 }
 
 .result-card-visual {
-    width: 180px; 
-    height: 270px;
+    width: 160px; /* 결과 카드도 비율 맞춰 축소 */
+    height: 250px;
     background-size: 100% 100%;
     background-position: center;
     border-radius: 12px;
@@ -366,7 +370,7 @@ body{
 
 .card-name-title {
     color: white;
-    font-size: 18px;
+    font-size: 19px;
     font-weight: 800;
     margin-bottom: 5px;
     text-align: center;
@@ -374,7 +378,7 @@ body{
 
 .reading-meaning {
     color: var(--good);
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 700;
     margin-bottom: 15px;
     text-align: center;
@@ -389,7 +393,7 @@ body{
     padding: 15px; 
     border-radius: 12px; 
     width: 100%;
-    text-align: left; /* 왼쪽 정렬로 변경 */
+    text-align: left; 
     word-break: keep-all;
 }
 
@@ -404,7 +408,7 @@ body{
     padding: 15px;
     border-radius: 12px;
     width: 100%;
-    text-align: left; /* 왼쪽 정렬로 변경 */
+    text-align: left; 
     word-break: keep-all;
     box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
 }
@@ -470,12 +474,28 @@ body{
 }
 
 @media (max-width: 900px) {
-    .scalable-wrapper { width: 100%; height: 400px; }
-    .deck-container { width: 100%; }
-    .deck-card { width: 100px; height: 150px; } 
-    .deck-title-msg { font-size: 20px; }
-    .result-column { min-width: 100%; max-width: 100%; } 
-    .landing-title { margin-bottom: 20px; }
+    /* 모바일에서는 높이 줄여줌 */
+    .scalable-wrapper { width: 100%; height: 450px; }
+    .deck-container { width: 100%; height: 400px; }
+    /* 모바일에서 카드 크기 조정 */
+    .deck-card { width: 90px; height: 140px; } 
+    .deck-title-msg { font-size: 20px; margin-bottom: 10px; }
+    
+    /* 모바일 랜딩 화면 조정 */
+    .center-card-overlay { 
+        width: 55%; 
+        height: 45%; 
+        left: 48%; 
+    }
+    .landing-title { font-size: 28px; margin-bottom: 20px; }
+    .start-btn { padding: 12px 24px; font-size: 16px; margin-left: 20px; }
+
+    /* 모바일 결과 화면 */
+    .result-column { 
+        min-width: 100%; 
+        max-width: 100%; 
+    } 
+    .result-card-visual { width: 120px; height: 180px; }
 }
 </style>
 </head>
@@ -507,6 +527,7 @@ body{
 
     <!-- Result Area -->
     <div class="result-container" id="resultContainer">
+        <div class="result-header-msg">✨ 결과가 나왔습니다! ✨</div>
         <div class="result-grid" id="resultGrid"></div>
 
         <div class="bottom-section">
@@ -780,7 +801,9 @@ function handleResize() {
     const tableArea = document.getElementById('tableArea');
     if(!wrapper || !tableArea) return;
 
-    const baseWidth = 900; 
+    // 모바일에서는 스케일링 기준 너비를 줄여서 카드가 크게 보이게 함
+    const isMobile = window.innerWidth <= 900;
+    const baseWidth = isMobile ? 600 : 900; 
     const baseHeight = 500;
     const availableWidth = tableArea.clientWidth;
     const availableHeight = tableArea.clientHeight;
@@ -797,6 +820,9 @@ window.addEventListener('resize', handleResize);
 
 
 function startSpread(){
+  // 시작 시 스크롤 최상단으로
+  window.scrollTo(0, 0);
+  
   document.getElementById('landing').style.opacity = '0';
   setTimeout(()=>{
       document.getElementById('landing').style.display = 'none';
@@ -827,12 +853,14 @@ function animateSpread(){
   document.getElementById('resultGrid').innerHTML='';
   document.getElementById('fortuneList').innerHTML='';
   document.getElementById('totalScore').textContent='';
+  
+  // 테이블 영역 다시 표시
+  document.getElementById('tableArea').style.display = 'flex';
   document.getElementById('resultContainer').style.display = 'none';
   document.getElementById('resultContainer').style.opacity = '0';
   
-  // 테이블 높이 복구
-  document.getElementById('tableArea').classList.remove('shrink');
-  document.getElementById('scalableWrapper').style.opacity = '1';
+  // 스크롤 상단 이동
+  window.scrollTo(0, 0);
 
   // Shuffle
   for (let i = tarotData.length - 1; i > 0; i--) {
@@ -854,8 +882,8 @@ function animateSpread(){
     wrapper.className = 'deck-card';
     
     // 초기 위치
-    wrapper.style.left = (centerX - 80) + 'px'; 
-    wrapper.style.top = (centerY - radius) + 50 + 'px'; 
+    wrapper.style.left = (centerX - 65) + 'px'; // 130/2
+    wrapper.style.top = (centerY - radius - 140) + 'px'; 
     wrapper.style.transform = `rotate(0deg)`;
     wrapper.style.zIndex = i; 
 
@@ -879,8 +907,8 @@ function animateSpread(){
         const angleDeg = startAngle + (i * angleStep);
         const angleRad = (angleDeg - 90) * (Math.PI / 180); 
 
-        const targetX = centerX + radius * Math.cos(angleRad) - 80; 
-        const targetY = centerY + radius * Math.sin(angleRad) - 120; 
+        const targetX = centerX + radius * Math.cos(angleRad) - 65; 
+        const targetY = centerY + radius * Math.sin(angleRad) - 230; 
 
         wrapper.style.left = targetX + 'px';
         wrapper.style.top = targetY + 'px';
@@ -960,10 +988,9 @@ function placeSpread(){
     }
   });
 
-  // 선택된 카드들 정렬 (좌/중/우 애니메이션)
-  // 카드 너비 160, 간격 60
-  const cardW = 160;
-  const gap = 100;
+  // 선택된 카드들 정렬 애니메이션
+  const cardW = 130; // 변경된 카드 너비
+  const gap = 80;
   const totalW = (cardW * 3) + (gap * 2);
   const startX = (900 - totalW) / 2;
   const targetY = 100; 
@@ -982,22 +1009,21 @@ function placeSpread(){
   setTimeout(()=>{
     document.getElementById('pickMsg').textContent = '✨ 결과가 나왔습니다! ✨';
     
-    // 테이블 영역 축소하고 결과창 보이기
-    document.getElementById('tableArea').classList.add('shrink');
-    // 실제 3D 카드는 이제 숨기고 (혹은 페이드아웃하고) 결과 카드로 대체
-    document.getElementById('scalableWrapper').style.opacity = '0';
+    // 테이블 영역 숨기고 결과 화면 표시
+    document.getElementById('tableArea').style.display = 'none';
 
     renderResultView();
     
-    // 결과 영역 표시
+    // 결과 영역 표시 및 스크롤 상단으로 이동
     const resultContainer = document.getElementById('resultContainer');
     resultContainer.style.display = 'flex';
-    setTimeout(()=> resultContainer.style.opacity = '1', 50);
     
-    // 스크롤
-    setTimeout(() => {
-        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 100);
+    // 스크롤을 맨 위로 강제 이동 (결과 상단부터 보이게)
+    window.scrollTo(0, 0); 
+    
+    setTimeout(()=> {
+        resultContainer.style.opacity = '1';
+    }, 50);
 
     isAnimating = false;
   }, 1000);
