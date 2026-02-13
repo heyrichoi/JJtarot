@@ -83,10 +83,13 @@ body{
 
 .center-card-overlay {
     position: absolute;
+    /* 위치는 화면 중앙 기준 유지 */
     top: 43%; 
     left: 48%; 
+    /* 너비/높이는 JS scale에 따라 시각적으로 변함 */
     width: 25%; 
     height: 40%;
+    
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -95,6 +98,7 @@ body{
     color: #3e2b1f; 
     z-index: 2;
     cursor: pointer;
+
     transform-style: preserve-3d;
     transform: 
         translate(-50%, -50%) 
@@ -102,6 +106,7 @@ body{
         rotateX(20deg)      
         rotateY(10deg)      
         scale(0.95);
+        
     mix-blend-mode: multiply;
     opacity: 0.95;
 }
@@ -125,31 +130,34 @@ body{
 
 .landing-title {
     font-family: 'Gowun Batang', serif;
-    font-size: clamp(24px, 5vw, 48px);
+    /* 스케일 변수 적용 (기본값 30px * scale) */
+    font-size: calc(30px * var(--landing-scale, 1));
     font-weight: 700;
     color: #2a1f15; 
-    margin-bottom: 25px; 
+    margin-bottom: calc(20px * var(--landing-scale, 1)); 
     text-shadow: 1px 1px 0px rgba(255,255,255,0.2); 
     word-break: keep-all;
     line-height: 1.1;
     letter-spacing: -0.05em;
     backface-visibility: hidden;
+    white-space: nowrap; /* 줄바꿈 방지 */
 }
 
 .start-btn {
     font-family: 'Noto Sans KR', sans-serif;
-    font-size: clamp(14px, 2.5vw, 18px);
+    /* 스케일 변수 적용 */
+    font-size: calc(16px * var(--landing-scale, 1));
     font-weight: 800;
     background: transparent;
-    border: 3px solid #2a1f15;
+    border: calc(3px * var(--landing-scale, 1)) solid #2a1f15;
     color: #2a1f15;
-    padding: 10px 28px;
+    padding: calc(10px * var(--landing-scale, 1)) calc(28px * var(--landing-scale, 1));
     border-radius: 50px;
     cursor: pointer;
     transition: all 0.2s;
     white-space: nowrap;
     backface-visibility: hidden;
-    margin-left: 25px; 
+    margin-left: calc(25px * var(--landing-scale, 1)); 
 }
 
 .start-btn:hover {
@@ -477,7 +485,7 @@ body{
     /* 모바일에서는 높이 줄여줌 */
     .scalable-wrapper { width: 100%; height: 450px; }
     .deck-container { width: 100%; height: 400px; }
-    /* 모바일에서 카드 크기 조정 */
+    /* 모바일에서 카드 크기 조정 (90x140) */
     .deck-card { width: 90px; height: 140px; } 
     .deck-title-msg { font-size: 20px; margin-bottom: 10px; }
     
@@ -487,9 +495,8 @@ body{
         height: 45%; 
         left: 48%; 
     }
-    .landing-title { font-size: 28px; margin-bottom: 20px; }
-    .start-btn { padding: 12px 24px; font-size: 16px; margin-left: 20px; }
-
+    /* 모바일에서는 scale 계산이 다르므로 기본 크기 지정 */
+    
     /* 모바일 결과 화면 */
     .result-column { 
         min-width: 100%; 
@@ -801,7 +808,35 @@ function handleResize() {
     const tableArea = document.getElementById('tableArea');
     if(!wrapper || !tableArea) return;
 
-    // 모바일에서는 스케일링 기준 너비를 줄여서 카드가 크게 보이게 함
+    // 랜딩 페이지 스케일링 계산
+    const landingOverlay = document.querySelector('.center-card-overlay');
+    if (landingOverlay) {
+       // 배경 이미지가 cover로 채워질 때, 실제 렌더링된 이미지의 스케일을 추정
+       // 이미지 비율: 1920x1080 가정 (16:9 = 1.77)
+       // 혹은 이미지 파일 분석이 어려우므로 윈도우 크기 기반으로 적절히 스케일링
+       const aspect = 1.77;
+       const winW = window.innerWidth;
+       const winH = window.innerHeight;
+       const winAspect = winW / winH;
+       
+       let scale;
+       if (winAspect > aspect) {
+           // 화면이 더 넓음 -> 이미지가 가로로 꽉 참 (세로 잘림)
+           // 기준 폭 1200px 정도라고 가정했을 때
+           scale = winW / 1200; 
+       } else {
+           // 화면이 더 좁음 -> 이미지가 세로로 꽉 참 (가로 잘림)
+           // 이미지의 실제 렌더링 너비 = winH * aspect
+           scale = (winH * aspect) / 1200;
+       }
+       
+       // 모바일 등에서 너무 작아지지 않게 최소값 설정
+       if(scale < 0.6) scale = 0.6;
+       
+       document.documentElement.style.setProperty('--landing-scale', scale);
+    }
+
+    // 카드 테이블 스케일링
     const isMobile = window.innerWidth <= 900;
     const baseWidth = isMobile ? 600 : 900; 
     const baseHeight = 500;
@@ -875,7 +910,7 @@ function animateSpread(){
   const angleStep = angleRange / (totalCards - 1);
   const radius = 600; 
   const centerX = 450; 
-  const centerY = 800; 
+  const centerY = 800; // 중심점 더 아래로 
 
   tarotData.forEach((data, i) => {
     const wrapper = document.createElement('div');
@@ -883,7 +918,7 @@ function animateSpread(){
     
     // 초기 위치
     wrapper.style.left = (centerX - 65) + 'px'; // 130/2
-    wrapper.style.top = (centerY - radius - 140) + 'px'; 
+    wrapper.style.top = (centerY - radius - 200) + 'px'; // 더 위쪽에서 시작
     wrapper.style.transform = `rotate(0deg)`;
     wrapper.style.zIndex = i; 
 
@@ -937,6 +972,14 @@ function animateSpread(){
 
 function resetReading(){
   if(isAnimating) return;
+  
+  // Make visible first so dimensions can be measured
+  document.getElementById('tableArea').style.display = 'flex';
+  document.getElementById('resultContainer').style.display = 'none';
+  
+  // Force resize calculation
+  handleResize();
+  
   animateSpread();
 }
 
